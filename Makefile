@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/05 15:18:57 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/05 16:28:15 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBFT	=	libft/libft.a
 
 MLX		=	minilibx-linux/libmlx.a
 
-SRCS	=	bobo.c
+SRCS	=	srcs/mlx/mlx_utils.c \
+			main_test.c
 
 SRCS_B	=	bibi.c
 
