@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/05 16:26:31 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:22:18 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,17 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 
-typedef struct s_colour
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_colour;
-
 typedef struct s_map
 {
-	int			n_col;
-	int			n_lin;
-	char		*map;
-	t_colour	ceiling;
-	t_colour	floor;
-	t_colour	north;
-	t_colour	south;
-	t_colour	east;
-	t_colour	west;
+	int				n_col;
+	int				n_lin;
+	char			*map;
+	unsigned int	ceiling;
+	unsigned int	floor;
+	unsigned int	north;
+	unsigned int	south;
+	unsigned int	east;
+	unsigned int	west;
 }	t_map;
 
 typedef struct s_player
@@ -42,11 +35,13 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	cam_dir_x;
-	double	cam_dir_y;
+	double	dir_len;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 
-typedef struct	s_img {
+typedef struct s_img
+{
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
@@ -61,8 +56,38 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
+enum e_dir
+{
+	north,
+	south,
+	east,
+	west
+};
+
+typedef struct s_line
+{
+	double		distance;
+	enum e_dir	type;
+}	t_line;
+
+typedef struct s_ray_calc
+{
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_dir_len;
+	int		map_x;
+	int		map_y;
+	double	camera_x;
+	double	dist_x;
+	double	dist_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
+}	t_ray_calc;
+
 void	close_mlx(t_mlx *mlx);
 int		start_mlx(t_mlx *mlx);
-
+int		new_frame(t_mlx *mlx, t_player *player, t_map *map);
 
 #endif
