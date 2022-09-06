@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 16:28:24 by cboudrin         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:02:24 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int		new_frame(t_mlx *mlx, t_player *player, t_map *map);
 int		deal_key_press(int keycode, t_bundle *bundle);
 int		deal_key_release(int keycode, t_bundle *bundle);
 int		update(t_bundle *bundle);
+int		exit_cube(t_bundle *bundle);
 
 #endif

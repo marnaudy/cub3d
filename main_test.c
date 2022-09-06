@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 16:36:07 by cboudrin         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:03:23 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int main(void)
 	new_frame(&mlx, &player, &map);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, deal_key_press, &bundle);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, deal_key_release, &bundle);
+	mlx_hook(mlx.win_ptr, DestroyNotify, NoEventMask, exit_cube, &bundle); 
 	mlx_loop_hook(mlx.mlx_ptr, update, &bundle);
 	mlx_loop(mlx.mlx_ptr);
 	close_mlx(&mlx);

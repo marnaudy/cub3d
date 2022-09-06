@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/06 16:40:49 by cboudrin         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:03:46 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int	deal_key_press(int keycode, t_bundle *bundle)
 	if (keycode == XK_Escape)
 	{
 		printf("you have closed the window.\n");
-		close_mlx(bundle->mlx);
-		exit(0);
+		exit_cube(bundle);
 	}
 	if (keycode == XK_w)
 		bundle->player->moving_forward = 1;
