@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
+#    By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/05 18:16:54 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/06 13:43:47 by cboudrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ MLX		=	minilibx-linux/libmlx.a
 
 SRCS	=	srcs/mlx/mlx_utils.c \
 			srcs/raycasting/raycasting.c \
+			srcs/interactive/movement.c \
 			main_test.c
 
 SRCS_B	=	bibi.c

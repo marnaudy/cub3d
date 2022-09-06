@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 12:20:59 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:40:16 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,30 @@ void	cast_dda(t_map *map, t_ray_calc *data, t_line *line)
 		{
 			data->dist_y += data->delta_y;
 			data->map_y += data->step_y;
-			line->type = south;
+			line->type = north;
+		}
+		if (data->map_x < 0 || data->map_y < 0 || data->map_x >= map->n_lin
+			|| data->map_y >= map->n_lin)
+		{
+			line->distance = INFINITY;
+			break ;
 		}
 		if (map->map[data->map_y * map->n_col + data->map_x] == '1')
 			break ;
+	}
+}
+
+void	cast_in_wall(t_ray_calc *data, t_line *line)
+{
+	if (data->dist_x < data->dist_y)
+	{
+		data->dist_x += data->delta_x;
+		line->type = west;
+	}
+	else
+	{
+		data->dist_y += data->delta_y;
+		line->type = north;
 	}
 }
 
@@ -80,20 +100,28 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 
 	init_ray_data(player, ray_nb, &data);
 	init_step_delta(player, &data);
-	cast_dda(map, &data, line);
+	if (map->map[data.map_y * map->n_col + data.map_x] == '1')
+		cast_in_wall(&data, line);
+	else
+		cast_dda(map, &data, line);
+	if (data.map_x < 0 || data.map_y < 0 || data.map_x > map->n_lin
+		|| data.map_y >= map->n_lin)
+		return ;
 	if (line->type == west)
 	{
 		if (data.ray_dir_x < 0)
 			line->type = east;
-		line->distance = player->dir_len / data.ray_dir_len * data.dist_x;
+		line->distance = player->dir_len / data.ray_dir_len
+			* (data.dist_x - data.delta_x);
 	}
 	else
 	{
 		if (data.ray_dir_y < 0)
-			line->type = north;
-		line->distance = player->dir_len / data.ray_dir_len * data.dist_y;
+			line->type = south;
+		line->distance = player->dir_len / data.ray_dir_len
+			* (data.dist_y - data.delta_y);
 	}
-	// printf("ray_x = %f ray_y = %f ray_len  = %f delta_x = %f delta_y = %f dist_x = %f dist_y = %f\n", data.ray_dir_x, data.ray_dir_y, data.ray_dir_len, data.delta_x, data.delta_y, data.dist_x, data.dist_y);
+	// printf("ray_x = %f ray_y = %f ray_len  = %f delta_x = %f delta_y = %f dist_x = %f dist_y = %f\nline_dist = %f\nplayer_x = %f player_y = %f\n\n", data.ray_dir_x, data.ray_dir_y, data.ray_dir_len, data.delta_x, data.delta_y, data.dist_x, data.dist_y, line->distance, player->x, player->y);
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour)
@@ -101,7 +129,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	// printf("x = %d y = %d\n", x, y);
 	*(unsigned int *)dst = colour;
 }
 
@@ -123,14 +150,14 @@ void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb)
 	unsigned int	wall_colour;
 
 	wall_colour = get_wall_colour(map, line->type);
-	line_height = (int)(WIN_HEIGHT / line->distance) * 1.5;
-	// printf("dist = %f height = %d\n", line->distance, line_height);
+	line_height = (int)(WIN_HEIGHT / line->distance) * 1.0;
+	if (line->distance < 0.000001)
+		line_height = WIN_HEIGHT;
 	y = 0;
 	while (y < WIN_HEIGHT / 2 - line_height / 2)
 	{
 		my_mlx_pixel_put(&mlx->img, ray_nb, y, map->ceiling);
 		y++;
-	// printf ("height = %d, distance = %f\n", line_height, line->distance);
 	}
 	while (y < line_height / 2 + WIN_HEIGHT / 2 && y < WIN_HEIGHT)
 	{
@@ -161,7 +188,6 @@ int	new_frame(t_mlx *mlx, t_player *player, t_map *map)
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		// printf("ray nb= %d\n", x);
 		cast_ray(player, map, x, &line);
 		draw_line(mlx, map, &line, x);
 		x++;

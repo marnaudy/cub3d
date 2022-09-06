@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 12:22:18 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:28:24 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct s_player
 	double	dir_len;
 	double	plane_x;
 	double	plane_y;
+	int		turning_left;
+	int		turning_right;
+	int		moving_forward;
+	int		moving_back;
 }	t_player;
 
 typedef struct s_img
@@ -86,8 +90,18 @@ typedef struct s_ray_calc
 	int		step_y;
 }	t_ray_calc;
 
+typedef struct s_bundle
+{
+	t_player	*player;
+	t_mlx		*mlx;
+	t_map		*map;
+}	t_bundle;
+
 void	close_mlx(t_mlx *mlx);
 int		start_mlx(t_mlx *mlx);
 int		new_frame(t_mlx *mlx, t_player *player, t_map *map);
+int		deal_key_press(int keycode, t_bundle *bundle);
+int		deal_key_release(int keycode, t_bundle *bundle);
+int		update(t_bundle *bundle);
 
 #endif
