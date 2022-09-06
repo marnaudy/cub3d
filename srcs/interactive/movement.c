@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/06 18:03:46 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/06 20:33:38 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	turn_right(t_player *player)
 
 void	turn_left(t_player *player)
 {
-	double	angle;
 	double	temp_x;
 
-	angle = 0.05;
 	temp_x = player->dir_x;
 	player->dir_x = player->dir_x * COS_A - player->dir_y * SIN_A;
 	player->dir_y = player->dir_y * COS_A + temp_x * SIN_A;
