@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_is_whitespace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 17:59:11 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 14:31:39 by marnaudy         ###   ########.fr       */
+/*   Created: 2022/09/07 12:11:04 by marnaudy          #+#    #+#             */
+/*   Updated: 2022/09/07 12:12:25 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include <stdlib.h>
-
-int	exit_cube(t_bundle *bundle)
+int	ft_is_whitespace(char c)
 {
-	close_mlx(bundle->mlx);
-	free(bundle->map->north_text_name);
-	free(bundle->map->south_text_name);
-	free(bundle->map->east_text_name);
-	free(bundle->map->west_text_name);
-	exit(0);
+	return (c == '\f'
+		|| c == '\t'
+		|| c == '\n'
+		|| c == '\r'
+		|| c == '\v'
+		|| c == ' ');
 }

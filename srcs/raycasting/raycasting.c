@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 16:40:16 by cboudrin         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:08:45 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,12 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour)
 unsigned int	get_wall_colour(t_map *map, enum e_dir dir)
 {
 	if (dir == north)
-		return (map->north);
+		return (map->north_colour);
 	if (dir == south)
-		return (map->south);
+		return (map->south_colour);
 	if (dir == east)
-		return (map->east);
-	return (map->west);
+		return (map->east_colour);
+	return (map->west_colour);
 }
 
 void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb)

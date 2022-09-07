@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/06 18:02:24 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 14:31:28 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ typedef struct s_map
 	char			*map;
 	unsigned int	ceiling;
 	unsigned int	floor;
-	unsigned int	north;
-	unsigned int	south;
-	unsigned int	east;
-	unsigned int	west;
+	unsigned int	north_colour;
+	unsigned int	south_colour;
+	unsigned int	east_colour;
+	unsigned int	west_colour;
+	char			*north_text_name;
+	char			*south_text_name;
+	char			*east_text_name;
+	char			*west_text_name;
 }	t_map;
 
 typedef struct s_player
@@ -104,5 +108,8 @@ int		deal_key_press(int keycode, t_bundle *bundle);
 int		deal_key_release(int keycode, t_bundle *bundle);
 int		update(t_bundle *bundle);
 int		exit_cube(t_bundle *bundle);
+void	init_player(t_player *player);
+void	init_map(t_map *map);
+int		parse(int argc, char **argv, t_map *map, t_player *player);
 
 #endif

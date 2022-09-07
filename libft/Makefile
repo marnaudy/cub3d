@@ -10,6 +10,7 @@ SRCS		= 	ft_atoi.c \
 				ft_isdigit.c \
 				ft_isprint.c \
 				ft_is_in_charset.c \
+				ft_is_whitespace.c \
 				ft_itoa.c \
 				ft_memchr.c \
 				ft_memcmp.c \

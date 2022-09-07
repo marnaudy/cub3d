@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/06 18:04:20 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/07 14:35:28 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS	=	srcs/mlx/mlx_utils.c \
 			srcs/raycasting/raycasting.c \
 			srcs/interactive/movement.c \
 			srcs/utils/exit.c \
+			srcs/utils/init.c \
+			srcs/parsing/parsing.c \
 			main_test.c
 
 SRCS_B	=	bibi.c
@@ -35,7 +37,7 @@ OBJS_B	=	${SRCS_B:.c=.o}
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -I./include -I./minilibx-linux
+CFLAGS	=	-Wall -Wextra -Werror -I./libft -I./include -I./minilibx-linux
 
 RM		=	rm -f
 
