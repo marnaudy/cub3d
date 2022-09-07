@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:23:48 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 14:33:19 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:03:09 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	init_player(t_player *player)
 {
 	player->x = -1;
 	player->y = -1;
+	player->dir_x = 0.0;
+	player->dir_y = 0.0;
+	player->dir_len = 1.0;
 	player->moving_forward = 0;
 	player->moving_back = 0;
 	player->turning_left = 0;

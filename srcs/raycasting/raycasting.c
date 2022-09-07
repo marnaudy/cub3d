@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 12:08:45 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:19:13 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 		line->distance = player->dir_len / data.ray_dir_len
 			* (data.dist_y - data.delta_y);
 	}
+	// printf("Play_dir_x = %f, Player_dir_y = %f, Plane dir_x = %f, Plane dir_y = %f\n", player->dir_x, player->dir_y, player->plane_x, player->plane_y);
 	// printf("ray_x = %f ray_y = %f ray_len  = %f delta_x = %f delta_y = %f dist_x = %f dist_y = %f\nline_dist = %f\nplayer_x = %f player_y = %f\n\n", data.ray_dir_x, data.ray_dir_y, data.ray_dir_len, data.delta_x, data.delta_y, data.dist_x, data.dist_y, line->distance, player->x, player->y);
 }
 

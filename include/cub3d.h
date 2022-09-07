@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 14:31:28 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:05:44 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+
+# define SQRT3_6 0.28867513459
+# define COS_A 0.99875026039
+# define SIN_A 0.04997916927
+// A = 0.05
 
 typedef struct s_map
 {

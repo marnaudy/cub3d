@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:19:32 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 15:07:03 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:36:05 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int	parse_file_id(int fd, t_map *map, int *line_count)
 	line = get_next_line(fd);
 	while (line)
 	{
-		line_count++;
+		(*line_count)++;
 		if (line[0] != '\n')
 		{
 			if (parse_line_id(map, line))
@@ -172,6 +172,212 @@ int	parse_file_id(int fd, t_map *map, int *line_count)
 	return (1);
 }
 
+int	valid_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[0] == '\n' || line[0] == '\0')
+		return (0);
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			return (1);
+		if (!ft_is_in_charset(line[i], "01NSEW "))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+char	*add_line_to_premap(char *premap, char *line)
+{
+	if (!valid_map_line(line))
+	{
+		free(premap);
+		free(line);
+		return (NULL);
+	}
+	premap = ft_strcat(premap, line);
+	if (!premap)
+		return (NULL);
+	return (premap);
+}
+
+char	*read_map(int fd, int *line_count)
+{
+	char	*premap;
+	char	*line;
+
+	premap = NULL;
+	line = get_next_line(fd);
+	while (line && line[0] == '\n')
+	{
+		(*line_count)++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	while (line)
+	{
+		(*line_count)++;
+		premap = add_line_to_premap(premap, line);
+		if (!premap)
+			return (NULL);
+		line = get_next_line(fd);
+	}
+	return (premap);
+}
+
+void	get_map_size(t_map *map, char *premap)
+{
+	int	i;
+	int	line_len;
+
+	i = 0;
+	line_len = 0;
+	map->n_col = 0;
+	map->n_lin = 0;
+	while (premap[i])
+	{
+		if (premap[i] == '\n')
+		{
+			if (line_len > map->n_col)
+				map->n_col = line_len;
+			line_len = 0;
+			map->n_lin++;
+		}
+		else
+			line_len++;
+		i++;
+	}
+	if (premap[i - 1] != '\n')
+		map->n_lin++;
+}
+
+int	convert_premap_map(t_map *map, char *premap)
+{
+	int	x;
+	int	y;
+	int	idx;
+
+	y = -1;
+	idx = 0;
+	map->map = malloc(map->n_col * map->n_lin * sizeof(char));
+	if (!map->map)
+		return (1);
+	while (++y < map->n_lin)
+	{
+		x = 0;
+		while (premap[idx] && premap[idx] != '\n')
+		{
+			map->map[y * map->n_col + x] = premap[idx];
+			idx++;
+			x++;
+		}
+		idx++;
+		x--;
+		while (++x < map->n_col)
+			map->map[y * map->n_col + x] = ' ';
+	}
+	return (0);
+}
+
+void	set_player_pos(t_player *player, int x, int y, char dir)
+{
+	if (dir == 'N')
+		player->dir_y = -1.0;
+	if (dir == 'S')
+		player->dir_y = 1.0;
+	if (dir == 'E')
+		player->dir_x = 1.0;
+	if (dir == 'W')
+		player->dir_x = -1.0;
+	player->x = x + 0.5;
+	player->y = y + 0.5;
+	player->plane_x = player->dir_y * SQRT3_6;
+	player->plane_y = -player->dir_x * SQRT3_6;
+}
+
+int	find_player(t_player *player, t_map *map)
+{
+	int	x;
+	int	y;
+	int	player_found;
+
+	y = 0;
+	player_found = 0;
+	while (y < map->n_lin)
+	{
+		x = 0;
+		while (x < map->n_col)
+		{
+			if (ft_is_in_charset(map->map[y * map->n_col + x], "NSEW"))
+			{
+				if (player_found)
+					return (1);
+				player_found = 1;
+				set_player_pos(player, x, y, map->map[y * map->n_col + x]);
+				map->map[y * map->n_col + x] = '0';
+			}
+			x++;
+		}
+		y++;
+	}
+	return (!player_found);
+}
+
+int	parse_file_map(int fd, t_map *map, int *line_count)
+{
+	char	*premap;
+
+	premap = read_map(fd, line_count);
+	get_map_size(map, premap);
+	if (convert_premap_map(map, premap))
+	{
+		free(premap);
+		return (1);
+	}
+	free(premap);
+	return (0);
+}
+
+int	is_touching_zero(t_map *map, int x, int y)
+{
+	if (x > 0 && map->map[y * map->n_col + x - 1] == '0')
+		return (1);
+	if (x < map->n_col - 1 && map->map[y * map->n_col + x + 1] == '0')
+		return (1);
+	if (y > 0 && map->map[(y - 1) * map->n_col + x] == '0')
+		return (1);
+	if (y < map->n_lin - 1 && map->map[(y + 1) * map->n_col + x] == '0')
+		return (1);
+	return (0);
+}
+
+int	valid_map(t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->n_lin)
+	{
+		x = 0;
+		while (x < map->n_col)
+		{
+			if ((x == 0 || x == map->n_col - 1 || y == 0 || y == map->n_lin - 1)
+				&& map->map[y * map->n_col + x] == '0')
+				return (0);
+			if (map->map[y * map->n_col + x] == ' '
+				&& is_touching_zero(map, x, y))
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 int	parse(int argc, char **argv, t_map *map, t_player *player)
 {
 	int	fd;
@@ -185,8 +391,14 @@ int	parse(int argc, char **argv, t_map *map, t_player *player)
 	if (fd < 0)
 		return (1);
 	line_count = 0;
-	if (parse_file_id(fd, map, &line_count))
+	if (parse_file_id(fd, map, &line_count)
+		|| parse_file_map(fd, map, &line_count))
+	{
+		close(fd);
 		return (1);
-	(void) player;
+	}
+	close(fd);
+	if (find_player(player, map) || !valid_map(map))
+		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/06 20:33:38 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:05:28 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <X11/keysym.h>
-
-#define SQRT3_6 0.28867513459
-#define COS_A 0.99875026039
-#define SIN_A 0.04997916927
-// A = 0.05
 
 void	move_up(t_player *player)
 {

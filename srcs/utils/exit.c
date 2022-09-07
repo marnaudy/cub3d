@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:59:11 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 14:31:39 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:14:29 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	exit_cube(t_bundle *bundle)
 	free(bundle->map->south_text_name);
 	free(bundle->map->east_text_name);
 	free(bundle->map->west_text_name);
+	free(bundle->map->map);
 	exit(0);
 }
