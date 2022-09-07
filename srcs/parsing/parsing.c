@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:19:32 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 17:36:05 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:09:29 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+int	write_error_ret(char *error)
+{
+	ft_putendl_fd("Error", STDOUT_FILENO);
+	ft_putendl_fd(error, STDOUT_FILENO);
+	return (1);
+}
 
 int	check_filename(char *name)
 {
@@ -80,16 +87,18 @@ int	parse_line_texture(t_map *map, char *line)
 
 	i = 2;
 	if (!ft_is_whitespace(line[2]))
-		return (1);
+		return (write_error_ret("invalid identifier"));
 	while (ft_is_whitespace(line[i]) && line[i] != '\n')
 		i++;
 	if (line[i] == '\n')
-		return (1);
+		return (write_error_ret("invalid identifier"));
 	tex_file = ft_strdup(&line[i]);
 	if (!tex_file)
-		return (1);
+		return (write_error_ret("malloc error"));
 	tex_file[ft_strlen(tex_file) - 1] = '\0';
-	return (attribute_tex_file(map, line, tex_file));
+	if (attribute_tex_file(map, line, tex_file))
+		return (write_error_ret("double identifier"));
+	return (0);
 }
 
 int	read_colours(char *line, unsigned int *colour)
@@ -124,11 +133,11 @@ int	parse_line_colour(t_map *map, char *line)
 	unsigned int	colour;
 
 	if (!ft_is_whitespace(line[1]))
-		return (1);
+		return (write_error_ret("invalid identifier"));
 	if (read_colours(line, &colour))
-		return (1);
+		return (write_error_ret("invalid or missing RGB value"));
 	if ((line[0] == 'C' && map->ceiling) || (line [0] == 'F' && map->floor))
-		return (1);
+		return (write_error_ret("double identifier"));
 	if (line[0] == 'C')
 		map->ceiling = colour;
 	else
@@ -142,7 +151,7 @@ int	parse_line_id(t_map *map, char *line)
 		return (parse_line_texture(map, line));
 	if (id_is_colour(line))
 		return (parse_line_colour(map, line));
-	return (1);
+	return (write_error_ret("invalid identifier"));
 }
 
 int	parse_file_id(int fd, t_map *map, int *line_count)
@@ -169,7 +178,7 @@ int	parse_file_id(int fd, t_map *map, int *line_count)
 			return (0);
 		line = get_next_line(fd);
 	}
-	return (1);
+	return (write_error_ret("missing identifier"));
 }
 
 int	valid_map_line(char *line)
@@ -178,13 +187,19 @@ int	valid_map_line(char *line)
 
 	i = 0;
 	if (line[0] == '\n' || line[0] == '\0')
+	{
+		write_error_ret("empty line in map");
 		return (0);
+	}
 	while (line[i])
 	{
 		if (line[i] == '\n')
 			return (1);
 		if (!ft_is_in_charset(line[i], "01NSEW "))
+		{
+			write_error_ret("invalid character in map");
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -200,7 +215,10 @@ char	*add_line_to_premap(char *premap, char *line)
 	}
 	premap = ft_strcat(premap, line);
 	if (!premap)
+	{
+		write_error_ret("malloc error");
 		return (NULL);
+	}
 	return (premap);
 }
 
@@ -264,7 +282,7 @@ int	convert_premap_map(t_map *map, char *premap)
 	idx = 0;
 	map->map = malloc(map->n_col * map->n_lin * sizeof(char));
 	if (!map->map)
-		return (1);
+		return (write_error_ret("malloc error"));
 	while (++y < map->n_lin)
 	{
 		x = 0;
@@ -341,7 +359,7 @@ int	parse_file_map(int fd, t_map *map, int *line_count)
 	return (0);
 }
 
-int	is_touching_zero(t_map *map, int x, int y)
+int	touches_zero(t_map *map, int x, int y)
 {
 	if (x > 0 && map->map[y * map->n_col + x - 1] == '0')
 		return (1);
@@ -367,10 +385,15 @@ int	valid_map(t_map *map)
 		{
 			if ((x == 0 || x == map->n_col - 1 || y == 0 || y == map->n_lin - 1)
 				&& map->map[y * map->n_col + x] == '0')
+			{
+				write_error_ret("map not surrounded by walls");
 				return (0);
-			if (map->map[y * map->n_col + x] == ' '
-				&& is_touching_zero(map, x, y))
+			}
+			if (map->map[y * map->n_col + x] == ' ' && touches_zero(map, x, y))
+			{
+				write_error_ret("map not surrounded by walls");
 				return (0);
+			}
 			x++;
 		}
 		y++;
@@ -384,12 +407,12 @@ int	parse(int argc, char **argv, t_map *map, t_player *player)
 	int	line_count;
 
 	if (argc != 2)
-		return (1);
+		return (write_error_ret("wrong number of arguments"));
 	if (check_filename(argv[1]))
-		return (1);
+		return (write_error_ret("wrong file extension"));
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		return (1);
+		return (write_error_ret("can't open file"));
 	line_count = 0;
 	if (parse_file_id(fd, map, &line_count)
 		|| parse_file_map(fd, map, &line_count))
@@ -398,7 +421,7 @@ int	parse(int argc, char **argv, t_map *map, t_player *player)
 		return (1);
 	}
 	close(fd);
-	if (find_player(player, map) || !valid_map(map))
-		return (1);
-	return (0);
+	if (find_player(player, map))
+		return (write_error_ret("wrong number of players"));
+	return (!valid_map(map));
 }
