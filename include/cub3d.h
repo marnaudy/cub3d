@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:15:55 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:00:22 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@
 # define SIN_A 0.04997916927
 // A = 0.05
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
+typedef struct s_texture
+{
+	t_img	img;
+	int		width;
+	int		height;
+	char	*name;
+}	t_texture;
+
 typedef struct s_map
 {
 	int				n_col;
@@ -32,10 +49,10 @@ typedef struct s_map
 	unsigned int	south_colour;
 	unsigned int	east_colour;
 	unsigned int	west_colour;
-	char			*north_text_name;
-	char			*south_text_name;
-	char			*east_text_name;
-	char			*west_text_name;
+	t_texture		north_text;
+	t_texture		south_text;
+	t_texture		east_text;
+	t_texture		west_text;
 }	t_map;
 
 typedef struct s_player
@@ -54,15 +71,6 @@ typedef struct s_player
 	int		turning_left;
 	int		turning_right;
 }	t_player;
-
-typedef struct s_img
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
 
 typedef struct s_mlx
 {
@@ -108,15 +116,18 @@ typedef struct s_bundle
 	t_map		*map;
 }	t_bundle;
 
-void	close_mlx(t_mlx *mlx);
+void	close_mlx(t_mlx *mlx, t_map *map);
 int		start_mlx(t_mlx *mlx);
 int		new_frame(t_mlx *mlx, t_player *player, t_map *map);
 int		deal_key_press(int keycode, t_bundle *bundle);
 int		deal_key_release(int keycode, t_bundle *bundle);
 int		update(t_bundle *bundle);
+void	free_map(t_map *map);
 int		exit_cube(t_bundle *bundle);
 void	init_player(t_player *player);
 void	init_map(t_map *map);
 int		parse(int argc, char **argv, t_map *map, t_player *player);
+int		write_error_ret(char *error);
+int		load_all_textures(t_mlx *mlx, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:23:48 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:15:54 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:59:43 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ void	init_player(t_player *player)
 void	init_map(t_map *map)
 {
 	map->map = NULL;
-	map->north_text_name = NULL;
-	map->south_text_name = NULL;
-	map->east_text_name = NULL;
-	map->west_text_name = NULL;
+	map->north_text.name = NULL;
+	map->south_text.name = NULL;
+	map->east_text.name = NULL;
+	map->west_text.name = NULL;
+	map->north_text.img.img_ptr = NULL;
+	map->south_text.img.img_ptr = NULL;
+	map->east_text.img.img_ptr = NULL;
+	map->west_text.img.img_ptr = NULL;
 	map->ceiling = 0;
 	map->floor = 0;
 	map->north_colour = 0x00FF0000;

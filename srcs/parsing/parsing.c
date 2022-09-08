@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:19:32 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:18:19 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:40:34 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,27 @@ int	attribute_tex_file(t_map *map, char *line, char *tex_file)
 {
 	if (!ft_strncmp(line, "NO", 2))
 	{
-		if (map->north_text_name)
+		if (map->north_text.name)
 			return (1);
-		map->north_text_name = tex_file;
+		map->north_text.name = tex_file;
 	}
 	if (!ft_strncmp(line, "SO", 2))
 	{
-		if (map->south_text_name)
+		if (map->south_text.name)
 			return (1);
-		map->south_text_name = tex_file;
+		map->south_text.name = tex_file;
 	}
 	if (!ft_strncmp(line, "EA", 2))
 	{
-		if (map->east_text_name)
+		if (map->east_text.name)
 			return (1);
-		map->east_text_name = tex_file;
+		map->east_text.name = tex_file;
 	}
 	if (!ft_strncmp(line, "WE", 2))
 	{
-		if (map->west_text_name)
+		if (map->west_text.name)
 			return (1);
-		map->west_text_name = tex_file;
+		map->west_text.name = tex_file;
 	}
 	return (0);
 }
