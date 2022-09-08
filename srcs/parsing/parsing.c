@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:19:32 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:40:34 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:47:38 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,8 +312,8 @@ void	set_player_pos(t_player *player, int x, int y, char dir)
 		player->dir_x = -1.0;
 	player->x = x + 0.5;
 	player->y = y + 0.5;
-	player->plane_x = player->dir_y * SQRT3_6;
-	player->plane_y = -player->dir_x * SQRT3_6;
+	player->plane_x = -player->dir_y * SQRT3_6;
+	player->plane_y = player->dir_x * SQRT3_6;
 }
 
 int	find_player(t_player *player, t_map *map)

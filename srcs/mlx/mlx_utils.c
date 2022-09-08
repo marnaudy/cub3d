@@ -6,13 +6,14 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:19:57 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 12:06:42 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:27:41 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void	close_mlx(t_mlx *mlx, t_map *map)
 {
@@ -62,12 +63,12 @@ int	start_mlx(t_mlx *mlx)
 int	load_texture(t_texture *texture, t_mlx *mlx)
 {
 	texture->img.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, texture->name,
-		&texture->width, &texture->height);
+			&texture->width, &texture->height);
 	if (!texture->img.img_ptr)
 		return (1);
 	texture->img.addr = mlx_get_data_addr(texture->img.img_ptr,
-		&texture->img.bits_per_pixel, &texture->img.line_length,
-		&texture->img.endian);
+			&texture->img.bits_per_pixel, &texture->img.line_length,
+			&texture->img.endian);
 	if (!texture->img.addr)
 		return (1);
 	return (0);

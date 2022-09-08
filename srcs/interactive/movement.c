@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/08 11:22:17 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:48:53 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	move_down(t_player *player)
 
 void	move_right(t_player *player)
 {
-	player->x = player->x + (player->dir_y) * SPEED_L_R;
-	player->y = player->y - (player->dir_x) * SPEED_L_R;
+	player->x = player->x - (player->dir_y) * SPEED_L_R;
+	player->y = player->y + (player->dir_x) * SPEED_L_R;
 }
 
 void	move_left(t_player *player)
 {
-	player->x = player->x - (player->dir_y) * SPEED_L_R;
-	player->y = player->y + (player->dir_x) * SPEED_L_R;
+	player->x = player->x + (player->dir_y) * SPEED_L_R;
+	player->y = player->y - (player->dir_x) * SPEED_L_R;
 }
 
 void	turn_right(t_player *player)
@@ -49,10 +49,10 @@ void	turn_right(t_player *player)
 	double	temp_x;
 
 	temp_x = player->dir_x;
-	player->dir_x = player->dir_x * COS_A + player->dir_y * SIN_A;
-	player->dir_y = player->dir_y * COS_A - temp_x * SIN_A;
-	player->plane_x = player->dir_y * SQRT3_6;
-	player->plane_y = -player->dir_x * SQRT3_6;
+	player->dir_x = player->dir_x * COS_A - player->dir_y * SIN_A;
+	player->dir_y = player->dir_y * COS_A + temp_x * SIN_A;
+	player->plane_x = -player->dir_y * SQRT3_6;
+	player->plane_y = player->dir_x * SQRT3_6;
 }
 
 void	turn_left(t_player *player)
@@ -60,10 +60,10 @@ void	turn_left(t_player *player)
 	double	temp_x;
 
 	temp_x = player->dir_x;
-	player->dir_x = player->dir_x * COS_A - player->dir_y * SIN_A;
-	player->dir_y = player->dir_y * COS_A + temp_x * SIN_A;
-	player->plane_x = player->dir_y * SQRT3_6;
-	player->plane_y = -player->dir_x * SQRT3_6;
+	player->dir_x = player->dir_x * COS_A + player->dir_y * SIN_A;
+	player->dir_y = player->dir_y * COS_A - temp_x * SIN_A;
+	player->plane_x = -player->dir_y * SQRT3_6;
+	player->plane_y = player->dir_x * SQRT3_6;
 }
 
 int	deal_key_press(int keycode, t_bundle *bundle)

@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 12:00:22 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:12:35 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 
-# define SQRT3_6 0.28867513459
+// # define SQRT3_6 0.28867513459
+# define SQRT3_6 0.4
 # define COS_A 0.99875026039
 # define SIN_A 0.04997916927
 // A = 0.05
@@ -61,7 +62,6 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	dir_len;
 	double	plane_x;
 	double	plane_y;
 	int		moving_forward;
@@ -91,13 +91,13 @@ typedef struct s_line
 {
 	double		distance;
 	enum e_dir	type;
+	double		wall_x;
 }	t_line;
 
 typedef struct s_ray_calc
 {
 	double	ray_dir_x;
 	double	ray_dir_y;
-	double	ray_dir_len;
 	int		map_x;
 	int		map_y;
 	double	camera_x;

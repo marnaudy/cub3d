@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/08 11:17:23 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/08 16:37:53 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS	=	srcs/mlx/mlx_utils.c \
 
 SRCS_B	=	bibi.c
 
-HEADERS	=	include/minishell.h
+HEADERS	=	include/cub3d.h
 
 OBJS	=	${SRCS:.c=.o}
 
