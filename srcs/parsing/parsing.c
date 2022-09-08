@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:19:32 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 18:09:29 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:18:19 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,8 @@ int	parse_file_map(int fd, t_map *map, int *line_count)
 	char	*premap;
 
 	premap = read_map(fd, line_count);
+	if (!premap)
+		return (1);
 	get_map_size(map, premap);
 	if (convert_premap_map(map, premap))
 	{

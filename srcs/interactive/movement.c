@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/07 17:05:28 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:22:17 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,31 @@
 #include <math.h>
 #include <X11/keysym.h>
 
+#define SPEED_F_B 0.1
+#define SPEED_L_R 0.05
+
 void	move_up(t_player *player)
 {
-	player->x = player->x + (player->dir_x) * 0.1;
-	player->y = player->y + (player->dir_y) * 0.1;
+	player->x = player->x + (player->dir_x) * SPEED_F_B;
+	player->y = player->y + (player->dir_y) * SPEED_F_B;
 }
 
 void	move_down(t_player *player)
 {
-	player->x = player->x - (player->dir_x) * 0.1;
-	player->y = player->y - (player->dir_y) * 0.1;
+	player->x = player->x - (player->dir_x) * SPEED_F_B;
+	player->y = player->y - (player->dir_y) * SPEED_F_B;
+}
+
+void	move_right(t_player *player)
+{
+	player->x = player->x + (player->dir_y) * SPEED_L_R;
+	player->y = player->y - (player->dir_x) * SPEED_L_R;
+}
+
+void	move_left(t_player *player)
+{
+	player->x = player->x - (player->dir_y) * SPEED_L_R;
+	player->y = player->y + (player->dir_x) * SPEED_L_R;
 }
 
 void	turn_right(t_player *player)
@@ -54,20 +69,26 @@ void	turn_left(t_player *player)
 int	deal_key_press(int keycode, t_bundle *bundle)
 {
 	if (keycode != XK_Escape && keycode != XK_w
-		&& keycode != XK_s && keycode != XK_a && keycode != XK_d)
+		&& keycode != XK_s && keycode != XK_a && keycode != XK_d
+		&& keycode != XK_Up && keycode != XK_Down
+		&& keycode != XK_Left && keycode != XK_Right)
 		return (0);
 	if (keycode == XK_Escape)
 	{
 		printf("you have closed the window.\n");
 		exit_cube(bundle);
 	}
-	if (keycode == XK_w)
+	if (keycode == XK_w || keycode == XK_Up)
 		bundle->player->moving_forward = 1;
-	if (keycode == XK_s)
+	if (keycode == XK_s || keycode == XK_Down)
 		bundle->player->moving_back = 1;
 	if (keycode == XK_a)
-		bundle->player->turning_left = 1;
+		bundle->player->moving_left = 1;
 	if (keycode == XK_d)
+		bundle->player->moving_right = 1;
+	if (keycode == XK_Left)
+		bundle->player->turning_left = 1;
+	if (keycode == XK_Right)
 		bundle->player->turning_right = 1;
 	return (0);
 }
@@ -75,15 +96,20 @@ int	deal_key_press(int keycode, t_bundle *bundle)
 int	deal_key_release(int keycode, t_bundle *bundle)
 {
 	if (keycode != XK_w && keycode != XK_s && keycode != XK_a
-		&& keycode != XK_d)
+		&& keycode != XK_d && keycode != XK_Up && keycode != XK_Down
+		&& keycode != XK_Left && keycode != XK_Right)
 		return (0);
-	if (keycode == XK_w)
+	if (keycode == XK_w || keycode == XK_Up)
 		bundle->player->moving_forward = 0;
-	if (keycode == XK_s)
+	if (keycode == XK_s || keycode == XK_Down)
 		bundle->player->moving_back = 0;
 	if (keycode == XK_a)
-		bundle->player->turning_left = 0;
+		bundle->player->moving_left = 0;
 	if (keycode == XK_d)
+		bundle->player->moving_right = 0;
+	if (keycode == XK_Left)
+		bundle->player->turning_left = 0;
+	if (keycode == XK_Right)
 		bundle->player->turning_right = 0;
 	return (0);
 }
@@ -94,6 +120,10 @@ void	update_player(t_player *player)
 		move_up(player);
 	if (player->moving_back)
 		move_down(player);
+	if (player->moving_left)
+		move_left(player);
+	if (player->moving_right)
+		move_right(player);
 	if (player->turning_right)
 		turn_right(player);
 	if (player->turning_left)

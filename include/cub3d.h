@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/07 17:05:44 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:15:55 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ typedef struct s_player
 	double	dir_len;
 	double	plane_x;
 	double	plane_y;
-	int		turning_left;
-	int		turning_right;
 	int		moving_forward;
 	int		moving_back;
+	int		moving_right;
+	int		moving_left;
+	int		turning_left;
+	int		turning_right;
 }	t_player;
 
 typedef struct s_img
