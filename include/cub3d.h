@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:02:18 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:38:40 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,6 @@ typedef struct s_map
 	char			*map;
 	unsigned int	ceiling;
 	unsigned int	floor;
-	unsigned int	north_colour;
-	unsigned int	south_colour;
-	unsigned int	east_colour;
-	unsigned int	west_colour;
 	t_texture		north_text;
 	t_texture		south_text;
 	t_texture		east_text;

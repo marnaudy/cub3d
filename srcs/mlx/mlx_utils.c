@@ -6,13 +6,11 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:19:57 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 16:27:41 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:43:18 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
-#include <stdlib.h>
 #include <stdio.h>
 
 void	close_mlx(t_mlx *mlx, t_map *map)

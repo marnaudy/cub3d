@@ -6,15 +6,11 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:00:55 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:43:47 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 void	cast_in_wall(t_ray_calc *data, t_line *line)
 {

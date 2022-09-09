@@ -6,13 +6,11 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:23:48 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:23:09 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:44:04 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 void	init_player(t_player *player)
 {
@@ -41,8 +39,4 @@ void	init_map(t_map *map)
 	map->west_text.img.img_ptr = NULL;
 	map->ceiling = 0;
 	map->floor = 0;
-	map->north_colour = 0x00FF0000;
-	map->south_colour = 0x0000FF00;
-	map->east_colour = 0x000000FF;
-	map->west_colour = 0x0000FFFF;
 }

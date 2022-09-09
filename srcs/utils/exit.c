@@ -6,12 +6,11 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:59:11 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 12:04:44 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:43:53 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdlib.h>
 
 void	free_map(t_map *map)
 {

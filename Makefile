@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/09 12:03:35 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/09 12:37:17 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,19 @@ SRCS	=	srcs/mlx/mlx_utils.c \
 			srcs/parsing/parsing.c \
 			srcs/main.c
 
-SRCS_B	=	bibi.c
+SRCS_B	=	srcs_bonus/mlx/mlx_utils.c \
+			srcs_bonus/raycasting/cast_utils.c \
+			srcs_bonus/raycasting/draw_ray.c \
+			srcs_bonus/raycasting/raycasting.c \
+			srcs_bonus/interactive/movement_utils.c \
+			srcs_bonus/interactive/movement.c \
+			srcs_bonus/utils/exit.c \
+			srcs_bonus/utils/init.c \
+			srcs_bonus/parsing/parsing_utils.c \
+			srcs_bonus/parsing/id_parsing.c \
+			srcs_bonus/parsing/read_map.c \
+			srcs_bonus/parsing/parsing.c \
+			srcs_bonus/main.c
 
 HEADERS	=	include/cub3d.h
 
