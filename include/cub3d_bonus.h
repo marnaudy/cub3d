@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:38:40 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 14:35:14 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ int		parse(int argc, char **argv, t_map *map, t_player *player);
 int		write_error_ret(char *error);
 int		load_all_textures(t_mlx *mlx, t_map *map);
 
-void	move_up(t_player *player);
-void	move_down(t_player *player);
-void	move_right(t_player *player);
-void	move_left(t_player *player);
+void	move_up(t_player *player, t_map *map);
+void	move_down(t_player *player, t_map *map);
+void	move_right(t_player *player, t_map *map);
+void	move_left(t_player *player, t_map *map);
 void	turn_right(t_player *player);
 
 int		check_filename(char *name);
@@ -153,5 +153,6 @@ void	cast_dda(t_map *map, t_ray_calc *data, t_line *line);
 void	calc_line_x(t_player *player, t_ray_calc *data, t_line *line);
 void	calc_line_y(t_player *player, t_ray_calc *data, t_line *line);
 void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb);
+void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line);
 
 #endif

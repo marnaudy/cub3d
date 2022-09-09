@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:41:09 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 14:43:46 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ int	write_error_ret(char *error)
 void	launch_loop(t_bundle *bundle)
 {
 	new_frame(bundle->mlx, bundle->player, bundle->map);
-	mlx_hook(bundle->mlx->win_ptr, KeyPress, KeyPressMask, deal_key_press, bundle);
-	mlx_hook(bundle->mlx->win_ptr, KeyRelease, KeyReleaseMask, deal_key_release, bundle);
-	mlx_hook(bundle->mlx->win_ptr, DestroyNotify, NoEventMask, exit_cube, bundle); 
+	mlx_hook(bundle->mlx->win_ptr, KeyPress, KeyPressMask,
+		deal_key_press, bundle);
+	mlx_hook(bundle->mlx->win_ptr, KeyRelease, KeyReleaseMask,
+		deal_key_release, bundle);
+	mlx_hook(bundle->mlx->win_ptr, DestroyNotify, NoEventMask,
+		exit_cube, bundle);
 	mlx_loop_hook(bundle->mlx->mlx_ptr, update, bundle);
 	mlx_loop(bundle->mlx->mlx_ptr);
 	close_mlx(bundle->mlx, bundle->map);
 	free_map(bundle->map);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_map		map;
 	t_player	player;
