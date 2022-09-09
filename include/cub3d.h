@@ -6,12 +6,17 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 16:12:35 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:02:18 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include <stdlib.h>
+# include <math.h>
+# include "mlx.h"
+# include "libft.h"
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
@@ -129,5 +134,28 @@ void	init_map(t_map *map);
 int		parse(int argc, char **argv, t_map *map, t_player *player);
 int		write_error_ret(char *error);
 int		load_all_textures(t_mlx *mlx, t_map *map);
+
+void	move_up(t_player *player);
+void	move_down(t_player *player);
+void	move_right(t_player *player);
+void	move_left(t_player *player);
+void	turn_right(t_player *player);
+
+int		check_filename(char *name);
+int		id_is_texture(char *line);
+int		id_is_colour(char *line);
+int		attribute_tex_file(t_map *map, char *line, char *tex_file);
+int		touches_zero(t_map *map, int x, int y);
+int		parse_file_id(int fd, t_map *map, int *line_count);
+char	*read_map(int fd, int *line_count);
+void	get_map_size(t_map *map, char *premap);
+int		convert_premap_map(t_map *map, char *premap);
+
+void	init_ray_data(t_player *player, int ray_nb, t_ray_calc *data);
+void	init_step_delta(t_player *player, t_ray_calc *data);
+void	cast_dda(t_map *map, t_ray_calc *data, t_line *line);
+void	calc_line_x(t_player *player, t_ray_calc *data, t_line *line);
+void	calc_line_y(t_player *player, t_ray_calc *data, t_line *line);
+void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb);
 
 #endif

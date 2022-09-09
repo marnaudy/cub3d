@@ -6,54 +6,13 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/08 12:48:53 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:23:15 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "cub3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include <X11/keysym.h>
-
-#define SPEED_F_B 0.1
-#define SPEED_L_R 0.05
-
-void	move_up(t_player *player)
-{
-	player->x = player->x + (player->dir_x) * SPEED_F_B;
-	player->y = player->y + (player->dir_y) * SPEED_F_B;
-}
-
-void	move_down(t_player *player)
-{
-	player->x = player->x - (player->dir_x) * SPEED_F_B;
-	player->y = player->y - (player->dir_y) * SPEED_F_B;
-}
-
-void	move_right(t_player *player)
-{
-	player->x = player->x - (player->dir_y) * SPEED_L_R;
-	player->y = player->y + (player->dir_x) * SPEED_L_R;
-}
-
-void	move_left(t_player *player)
-{
-	player->x = player->x + (player->dir_y) * SPEED_L_R;
-	player->y = player->y - (player->dir_x) * SPEED_L_R;
-}
-
-void	turn_right(t_player *player)
-{
-	double	temp_x;
-
-	temp_x = player->dir_x;
-	player->dir_x = player->dir_x * COS_A - player->dir_y * SIN_A;
-	player->dir_y = player->dir_y * COS_A + temp_x * SIN_A;
-	player->plane_x = -player->dir_y * SQRT3_6;
-	player->plane_y = player->dir_x * SQRT3_6;
-}
+#include <stdio.h>
 
 void	turn_left(t_player *player)
 {

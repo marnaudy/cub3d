@@ -6,12 +6,13 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:23:48 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/08 12:42:44 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:23:09 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void	init_player(t_player *player)
 {

@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/08 16:37:53 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/09 12:03:35 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,18 @@ LIBFT	=	libft/libft.a
 MLX		=	minilibx-linux/libmlx.a
 
 SRCS	=	srcs/mlx/mlx_utils.c \
+			srcs/raycasting/cast_utils.c \
+			srcs/raycasting/draw_ray.c \
 			srcs/raycasting/raycasting.c \
+			srcs/interactive/movement_utils.c \
 			srcs/interactive/movement.c \
 			srcs/utils/exit.c \
 			srcs/utils/init.c \
+			srcs/parsing/parsing_utils.c \
+			srcs/parsing/id_parsing.c \
+			srcs/parsing/read_map.c \
 			srcs/parsing/parsing.c \
-			main_test.c
+			srcs/main.c
 
 SRCS_B	=	bibi.c
 
