@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:43:47 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:39:16 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 		cast_in_wall(&data, line);
 	else
 		cast_dda(map, &data, line);
-	if (data.map_x < 0 || data.map_y < 0 || data.map_x > map->n_lin
+	if (data.map_x < 0 || data.map_y < 0 || data.map_x > map->n_col
 		|| data.map_y >= map->n_lin)
 		return ;
 	if (line->type == west)
