@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:51:39 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:40:31 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:36:45 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	cast_dda(t_map *map, t_ray_calc *data, t_line *line)
 			data->map_y += data->step_y;
 			line->type = north;
 		}
-		if (data->map_x < 0 || data->map_y < 0 || data->map_x >= map->n_lin
+		if (data->map_x < 0 || data->map_y < 0 || data->map_x >= map->n_col
 			|| data->map_y >= map->n_lin)
 		{
 			line->distance = INFINITY;
-			line->wall_x = 0.0;
+			line->wall_x = 0.1;
 			break ;
 		}
 		if (map->map[data->map_y * map->n_col + data->map_x] == '1')

@@ -6,13 +6,14 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/09 14:35:30 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:15:29 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <X11/keysym.h>
 #include <stdio.h>
+#include <sys/time.h>
 
 void	turn_left(t_player *player)
 {

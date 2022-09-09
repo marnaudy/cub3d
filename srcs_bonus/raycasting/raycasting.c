@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:41:54 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:37:18 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 		cast_in_wall(&data, line);
 	else
 		cast_dda(map, &data, line);
-	if (data.map_x < 0 || data.map_y < 0 || data.map_x > map->n_lin
+	if (data.map_x < 0 || data.map_y < 0 || data.map_x > map->n_col
 		|| data.map_y >= map->n_lin)
 		return ;
 	if (line->type == west)
@@ -66,6 +66,7 @@ int	new_frame(t_mlx *mlx, t_player *player, t_map *map)
 		draw_line(mlx, map, &line, x);
 		x++;
 	}
+	draw_minimap(mlx, player, map);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img_ptr, 0, 0);
 	mlx_destroy_image(mlx->mlx_ptr, old_img.img_ptr);
 	return (0);

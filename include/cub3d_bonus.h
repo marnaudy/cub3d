@@ -6,12 +6,12 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 14:35:14 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:19:11 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <stdlib.h>
 # include <math.h>
@@ -117,6 +117,12 @@ typedef struct s_bundle
 	t_map		*map;
 }	t_bundle;
 
+struct s_point
+{
+	int	x;
+	int	y;
+};
+
 void	close_mlx(t_mlx *mlx, t_map *map);
 int		start_mlx(t_mlx *mlx);
 int		new_frame(t_mlx *mlx, t_player *player, t_map *map);
@@ -152,7 +158,11 @@ void	init_step_delta(t_player *player, t_ray_calc *data);
 void	cast_dda(t_map *map, t_ray_calc *data, t_line *line);
 void	calc_line_x(t_player *player, t_ray_calc *data, t_line *line);
 void	calc_line_y(t_player *player, t_ray_calc *data, t_line *line);
-void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb);
 void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line);
+void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour);
+void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb);
+void	draw_square(t_mlx *mlx, t_map *map,
+			struct s_point *p, double size_ratio);
+void	draw_minimap(t_mlx *mlx, t_player *player, t_map *map);
 
 #endif
