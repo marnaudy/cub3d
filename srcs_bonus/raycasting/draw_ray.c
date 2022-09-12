@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:00:00 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:40:37 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:56:44 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define WALL_RATIO 1.8
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour)
+void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int colour)
 {
 	char	*dst;
 

@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/09 17:15:29 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:00:30 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,40 @@ void	turn_left(t_player *player)
 	player->dir_y = player->dir_y * COS_A - temp_x * SIN_A;
 	player->plane_x = -player->dir_y * SQRT3_6;
 	player->plane_y = player->dir_x * SQRT3_6;
+}
+
+void	small_turns_left(t_player *player, int n)
+{
+	double	temp_x;
+	int		i;
+
+	i = 0;
+	while (i < n)
+	{
+		temp_x = player->dir_x;
+		player->dir_x = player->dir_x * COS_B + player->dir_y * SIN_B;
+		player->dir_y = player->dir_y * COS_B - temp_x * SIN_B;
+		player->plane_x = -player->dir_y * SQRT3_6;
+		player->plane_y = player->dir_x * SQRT3_6;
+		i++;
+	}
+}
+
+void	small_turns_right(t_player *player, int n)
+{
+	double	temp_x;
+	int		i;
+
+	i = 0;
+	while (i < n)
+	{
+		temp_x = player->dir_x;
+		player->dir_x = player->dir_x * COS_B - player->dir_y * SIN_B;
+		player->dir_y = player->dir_y * COS_B + temp_x * SIN_B;
+		player->plane_x = -player->dir_y * SQRT3_6;
+		player->plane_y = player->dir_x * SQRT3_6;
+		i++;
+	}
 }
 
 int	deal_key_press(int keycode, t_bundle *bundle)
@@ -94,5 +128,27 @@ int	update(t_bundle *bundle)
 {
 	update_player(bundle->player, bundle->map);
 	new_frame(bundle->mlx, bundle->player, bundle->map);
+	return (0);
+}
+
+int	deal_mouse_move(int x, int y, t_bundle *bundle)
+{
+	int	old_x;
+
+	(void) y;
+	old_x = WIN_WIDTH / 2;
+	if (x - old_x > 100 || old_x - x > 100 || old_x == x)
+	{
+		XWarpPointer(bundle->mlx->mlx_ptr->display, 0,
+			bundle->mlx->mlx_ptr->root, 0, 0, 0, 0,
+			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		return (0);
+	}
+	if (x > old_x)
+		small_turns_right(bundle->player, x - old_x);
+	else
+		small_turns_left(bundle->player, old_x - x);
+	XWarpPointer(bundle->mlx->mlx_ptr->display, 0, bundle->mlx->mlx_ptr->root,
+		0, 0, 0, 0, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (0);
 }

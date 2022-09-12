@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 16:40:45 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/12 08:58:42 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	launch_loop(t_bundle *bundle)
 		deal_key_release, bundle);
 	mlx_hook(bundle->mlx->win_ptr, DestroyNotify, NoEventMask,
 		exit_cube, bundle);
+	mlx_hook(bundle->mlx->win_ptr, MotionNotify, PointerMotionMask,
+		deal_mouse_move, bundle);
 	mlx_loop_hook(bundle->mlx->mlx_ptr, update, bundle);
 	mlx_loop(bundle->mlx->mlx_ptr);
 	close_mlx(bundle->mlx, bundle->map);

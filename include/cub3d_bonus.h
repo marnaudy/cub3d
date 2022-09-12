@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 17:19:11 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:58:24 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "mlx.h"
+# include "mlx_int.h"
 # include "libft.h"
 
 # define WIN_WIDTH 1920
@@ -26,19 +27,25 @@
 # define COS_A 0.99875026039
 # define SIN_A 0.04997916927
 // A = 0.05
+// # define COS_B 0.99998750002
+// # define SIN_B 0.00499997916
+// B = 0.005
+# define COS_B 0.999998
+# define SIN_B 0.00199999866
+// B = 0.002
 
-typedef struct s_img
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}	t_img;
+}	t_image;
 
 typedef struct s_texture
 {
-	t_img	img;
+	t_image	img;
 	int		width;
 	int		height;
 	char	*name;
@@ -75,9 +82,9 @@ typedef struct s_player
 
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
+	t_xvar	*mlx_ptr;
 	void	*win_ptr;
-	t_img	img;
+	t_image	img;
 }	t_mlx;
 
 enum e_dir
@@ -142,6 +149,7 @@ void	move_down(t_player *player, t_map *map);
 void	move_right(t_player *player, t_map *map);
 void	move_left(t_player *player, t_map *map);
 void	turn_right(t_player *player);
+int		deal_mouse_move(int x, int y, t_bundle *bundle);
 
 int		check_filename(char *name);
 int		id_is_texture(char *line);
@@ -159,7 +167,7 @@ void	cast_dda(t_map *map, t_ray_calc *data, t_line *line);
 void	calc_line_x(t_player *player, t_ray_calc *data, t_line *line);
 void	calc_line_y(t_player *player, t_ray_calc *data, t_line *line);
 void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line);
-void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int colour);
+void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int colour);
 void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb);
 void	draw_square(t_mlx *mlx, t_map *map,
 			struct s_point *p, double size_ratio);

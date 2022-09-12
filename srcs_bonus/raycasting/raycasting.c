@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 16:37:18 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:59:07 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 
 int	new_frame(t_mlx *mlx, t_player *player, t_map *map)
 {
-	t_img	old_img;
+	t_image	old_img;
 	int		x;
 	t_line	line;
 
