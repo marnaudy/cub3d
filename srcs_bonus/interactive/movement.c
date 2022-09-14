@@ -6,59 +6,13 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/12 14:00:30 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:49:30 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <X11/keysym.h>
 #include <stdio.h>
-#include <sys/time.h>
-
-void	turn_left(t_player *player)
-{
-	double	temp_x;
-
-	temp_x = player->dir_x;
-	player->dir_x = player->dir_x * COS_A + player->dir_y * SIN_A;
-	player->dir_y = player->dir_y * COS_A - temp_x * SIN_A;
-	player->plane_x = -player->dir_y * SQRT3_6;
-	player->plane_y = player->dir_x * SQRT3_6;
-}
-
-void	small_turns_left(t_player *player, int n)
-{
-	double	temp_x;
-	int		i;
-
-	i = 0;
-	while (i < n)
-	{
-		temp_x = player->dir_x;
-		player->dir_x = player->dir_x * COS_B + player->dir_y * SIN_B;
-		player->dir_y = player->dir_y * COS_B - temp_x * SIN_B;
-		player->plane_x = -player->dir_y * SQRT3_6;
-		player->plane_y = player->dir_x * SQRT3_6;
-		i++;
-	}
-}
-
-void	small_turns_right(t_player *player, int n)
-{
-	double	temp_x;
-	int		i;
-
-	i = 0;
-	while (i < n)
-	{
-		temp_x = player->dir_x;
-		player->dir_x = player->dir_x * COS_B - player->dir_y * SIN_B;
-		player->dir_y = player->dir_y * COS_B + temp_x * SIN_B;
-		player->plane_x = -player->dir_y * SQRT3_6;
-		player->plane_y = player->dir_x * SQRT3_6;
-		i++;
-	}
-}
 
 int	deal_key_press(int keycode, t_bundle *bundle)
 {
@@ -141,14 +95,16 @@ int	deal_mouse_move(int x, int y, t_bundle *bundle)
 	{
 		XWarpPointer(bundle->mlx->mlx_ptr->display, 0,
 			bundle->mlx->mlx_ptr->root, 0, 0, 0, 0,
-			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+			WIN_WIDTH / 2, WIN_HEIGHT - 10);
+		old_x = x;
 		return (0);
 	}
 	if (x > old_x)
 		small_turns_right(bundle->player, x - old_x);
 	else
 		small_turns_left(bundle->player, old_x - x);
+	old_x = x;
 	XWarpPointer(bundle->mlx->mlx_ptr->display, 0, bundle->mlx->mlx_ptr->root,
-		0, 0, 0, 0, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		0, 0, 0, 0, WIN_WIDTH / 2, WIN_HEIGHT - 10);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:36:19 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:59:07 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:40:59 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	cast_ray(t_player *player, t_map *map, int ray_nb, t_line *line)
 
 	init_ray_data(player, ray_nb, &data);
 	init_step_delta(player, &data);
-	if (map->map[data.map_y * map->n_col + data.map_x] == '1')
+	if (data.map_x < 0 || data.map_y < 0 || data.map_x >= map->n_col
+		|| data.map_y >= map->n_lin
+		|| map->map[data.map_y * map->n_col + data.map_x] == '1')
 		cast_in_wall(&data, line);
 	else
 		cast_dda(map, &data, line);

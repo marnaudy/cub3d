@@ -6,13 +6,13 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:00:00 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:56:44 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:44:23 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-#define WALL_RATIO 1.8
+#define WALL_RATIO 1.5
 
 void	my_mlx_pixel_put(t_image *img, int x, int y, unsigned int colour)
 {
@@ -40,8 +40,8 @@ void	draw_floor_and_ceiling(t_mlx *mlx, t_map *map,
 	int	y;
 
 	line_height = (int)(WIN_HEIGHT / line->distance) * WALL_RATIO;
-	if (line->distance < 0.000001)
-		line_height = WIN_HEIGHT;
+	if (line->distance < 0.00001)
+		line_height = 3000000;
 	y = 0;
 	while (y < WIN_HEIGHT / 2 - line_height / 2)
 	{
@@ -66,8 +66,8 @@ void	draw_line(t_mlx *mlx, t_map *map, t_line *line, int ray_nb)
 
 	draw_floor_and_ceiling(mlx, map, line, ray_nb);
 	wall_height = (int)(WIN_HEIGHT / line->distance) * WALL_RATIO;
-	if (line->distance < 0.000001)
-		wall_height = WIN_HEIGHT;
+	if (line->distance < 0.00001)
+		wall_height = 3000000;
 	y = WIN_HEIGHT / 2 - wall_height / 2;
 	texture = get_wall_texture(map, line->type);
 	if (y < 0)

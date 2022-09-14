@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:51:39 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 16:36:45 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:14:20 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_ray_data(t_player *player, int ray_nb, t_ray_calc *data)
 
 void	init_step_delta(t_player *player, t_ray_calc *data)
 {
-	if (data->ray_dir_x < 0)
+	if (data->ray_dir_x < 0 && player->x > 0.0)
 	{
 		data->step_x = -1;
 		data->dist_x = (player->x - data->map_x) * data->delta_x;
@@ -35,7 +35,8 @@ void	init_step_delta(t_player *player, t_ray_calc *data)
 		data->step_x = 1;
 		data->dist_x = (data->map_x + 1.0 - player->x) * data->delta_x;
 	}
-	if (data->ray_dir_y < 0)
+	if ((data->ray_dir_y < 0 && player->y > 0.0)
+		|| (data->ray_dir_y > 0 && player->y < 0.0))
 	{
 		data->step_y = -1;
 		data->dist_y = (player->y - data->map_y) * data->delta_y;

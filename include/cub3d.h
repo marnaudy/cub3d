@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 14:18:40 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:24:59 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 // # define SQRT3_6 0.28867513459
-# define SQRT3_6 0.4
+# define SQRT3_6 0.5
 # define COS_A 0.99875026039
 # define SIN_A 0.04997916927
 // A = 0.05
@@ -131,10 +131,10 @@ int		parse(int argc, char **argv, t_map *map, t_player *player);
 int		write_error_ret(char *error);
 int		load_all_textures(t_mlx *mlx, t_map *map);
 
-void	move_up(t_player *player);
-void	move_down(t_player *player);
-void	move_right(t_player *player);
-void	move_left(t_player *player);
+void	move_up(t_player *player, t_map *map);
+void	move_down(t_player *player, t_map *map);
+void	move_right(t_player *player, t_map *map);
+void	move_left(t_player *player, t_map *map);
 void	turn_right(t_player *player);
 
 int		check_filename(char *name);

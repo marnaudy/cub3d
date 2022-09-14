@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:58:24 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:50:08 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include "mlx_int.h"
 # include "libft.h"
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 // # define SQRT3_6 0.28867513459
-# define SQRT3_6 0.4
+# define SQRT3_6 0.5
 # define COS_A 0.99875026039
 # define SIN_A 0.04997916927
 // A = 0.05
@@ -149,6 +149,9 @@ void	move_down(t_player *player, t_map *map);
 void	move_right(t_player *player, t_map *map);
 void	move_left(t_player *player, t_map *map);
 void	turn_right(t_player *player);
+void	turn_left(t_player *player);
+void	small_turns_left(t_player *player, int n);
+void	small_turns_right(t_player *player, int n);
 int		deal_mouse_move(int x, int y, t_bundle *bundle);
 
 int		check_filename(char *name);

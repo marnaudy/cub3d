@@ -6,7 +6,7 @@
 /*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 13:23:13 by cboudrin          #+#    #+#             */
-/*   Updated: 2022/09/09 12:23:15 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:22:05 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ int	deal_key_release(int keycode, t_bundle *bundle)
 	return (0);
 }
 
-void	update_player(t_player *player)
+void	update_player(t_player *player, t_map *map)
 {
 	if (player->moving_forward)
-		move_up(player);
+		move_up(player, map);
 	if (player->moving_back)
-		move_down(player);
+		move_down(player, map);
 	if (player->moving_left)
-		move_left(player);
+		move_left(player, map);
 	if (player->moving_right)
-		move_right(player);
+		move_right(player, map);
 	if (player->turning_right)
 		turn_right(player);
 	if (player->turning_left)
@@ -91,7 +91,7 @@ void	update_player(t_player *player)
 
 int	update(t_bundle *bundle)
 {
-	update_player(bundle->player);
+	update_player(bundle->player, bundle->map);
 	new_frame(bundle->mlx, bundle->player, bundle->map);
 	return (0);
 }

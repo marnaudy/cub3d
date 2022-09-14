@@ -6,7 +6,7 @@
 #    By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 17:15:05 by marnaudy          #+#    #+#              #
-#    Updated: 2022/09/09 17:22:03 by marnaudy         ###   ########.fr        #
+#    Updated: 2022/09/14 10:54:47 by marnaudy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS_B	=	srcs_bonus/mlx/mlx_utils.c \
 			srcs_bonus/raycasting/draw_ray.c \
 			srcs_bonus/raycasting/raycasting.c \
 			srcs_bonus/interactive/movement_utils.c \
+			srcs_bonus/interactive/movement_utils2.c \
 			srcs_bonus/interactive/movement.c \
 			srcs_bonus/utils/exit.c \
 			srcs_bonus/utils/init.c \
@@ -58,7 +59,7 @@ OBJS_B	=	${SRCS_B:.c=.o}
 
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -I./libft -I./include -I./minilibx-linux -g
+CFLAGS	=	-Wall -Wextra -Werror -I./libft -I./include -I./minilibx-linux
 
 RM		=	rm -f
 
