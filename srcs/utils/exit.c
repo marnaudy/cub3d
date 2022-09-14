@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:59:11 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:43:53 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 15:06:14 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_map(t_map *map)
 
 int	exit_cube(t_bundle *bundle)
 {
-	close_mlx(bundle->mlx, bundle->map);
-	free_map(bundle->map);
+	close_mlx(&bundle->mlx, &bundle->map);
+	free_map(&bundle->map);
 	exit(0);
 }

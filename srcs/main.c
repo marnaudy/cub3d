@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 14:43:06 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 15:21:13 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,39 @@ int	write_error_ret(char *error)
 
 void	launch_loop(t_bundle *bundle)
 {
-	new_frame(bundle->mlx, bundle->player, bundle->map);
-	mlx_hook(bundle->mlx->win_ptr, KeyPress, KeyPressMask,
+	new_frame(&bundle->mlx, &bundle->player, &bundle->map);
+	mlx_hook(bundle->mlx.win_ptr, KeyPress, KeyPressMask,
 		deal_key_press, bundle);
-	mlx_hook(bundle->mlx->win_ptr, KeyRelease, KeyReleaseMask,
+	mlx_hook(bundle->mlx.win_ptr, KeyRelease, KeyReleaseMask,
 		deal_key_release, bundle);
-	mlx_hook(bundle->mlx->win_ptr, DestroyNotify, NoEventMask,
+	mlx_hook(bundle->mlx.win_ptr, DestroyNotify, NoEventMask,
 		exit_cube, bundle);
-	mlx_loop_hook(bundle->mlx->mlx_ptr, update, bundle);
-	mlx_loop(bundle->mlx->mlx_ptr);
-	close_mlx(bundle->mlx, bundle->map);
-	free_map(bundle->map);
+	mlx_loop_hook(bundle->mlx.mlx_ptr, update, bundle);
+	mlx_loop(bundle->mlx.mlx_ptr);
+	close_mlx(&bundle->mlx, &bundle->map);
+	free_map(&bundle->map);
 }
 
 int	main(int argc, char **argv)
 {
-	t_map		map;
-	t_player	player;
-	t_mlx		mlx;
 	t_bundle	bundle;
 
-	init_map(&map);
-	init_player(&player);
-	if (parse(argc, argv, &map, &player))
-		return (1);
-	bundle.mlx = &mlx;
-	bundle.map = &map;
-	bundle.player = &player;
-	if (start_mlx(&mlx))
+	init_map(&bundle.map);
+	init_player(&bundle.player);
+	if (parse(argc, argv, &bundle.map, &bundle.player))
 	{
-		free_map(&map);
+		free_map(&bundle.map);
 		return (1);
 	}
-	if (load_all_textures(&mlx, &map))
+	if (start_mlx(&bundle.mlx))
 	{
-		free_map(&map);
-		close_mlx(&mlx, &map);
+		free_map(&bundle.map);
+		return (1);
+	}
+	if (load_all_textures(&bundle.mlx, &bundle.map))
+	{
+		free_map(&bundle.map);
+		close_mlx(&bundle.mlx, &bundle.map);
 		return (1);
 	}
 	launch_loop(&bundle);

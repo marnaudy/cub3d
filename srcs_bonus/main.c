@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/14 10:41:22 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 15:03:38 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,46 +23,40 @@ int	write_error_ret(char *error)
 
 void	launch_loop(t_bundle *bundle)
 {
-	new_frame(bundle->mlx, bundle->player, bundle->map);
-	mlx_hook(bundle->mlx->win_ptr, KeyPress, KeyPressMask,
+	new_frame(&bundle->mlx, &bundle->player, &bundle->map);
+	mlx_hook(bundle->mlx.win_ptr, KeyPress, KeyPressMask,
 		deal_key_press, bundle);
-	mlx_hook(bundle->mlx->win_ptr, KeyRelease, KeyReleaseMask,
+	mlx_hook(bundle->mlx.win_ptr, KeyRelease, KeyReleaseMask,
 		deal_key_release, bundle);
-	mlx_hook(bundle->mlx->win_ptr, DestroyNotify, NoEventMask,
+	mlx_hook(bundle->mlx.win_ptr, DestroyNotify, NoEventMask,
 		exit_cube, bundle);
-	mlx_hook(bundle->mlx->win_ptr, MotionNotify, PointerMotionMask,
+	mlx_hook(bundle->mlx.win_ptr, MotionNotify, PointerMotionMask,
 		deal_mouse_move, bundle);
-	XWarpPointer(bundle->mlx->mlx_ptr->display, 0, bundle->mlx->mlx_ptr->root,
+	XWarpPointer(bundle->mlx.mlx_ptr->display, 0, bundle->mlx.mlx_ptr->root,
 		0, 0, 0, 0, WIN_WIDTH / 2, WIN_HEIGHT - 10);
-	mlx_loop_hook(bundle->mlx->mlx_ptr, update, bundle);
-	mlx_loop(bundle->mlx->mlx_ptr);
-	close_mlx(bundle->mlx, bundle->map);
-	free_map(bundle->map);
+	mlx_loop_hook(bundle->mlx.mlx_ptr, update, bundle);
+	mlx_loop(bundle->mlx.mlx_ptr);
+	close_mlx(&bundle->mlx, &bundle->map);
+	free_map(&bundle->map);
 }
 
 int	main(int argc, char **argv)
 {
-	t_map		map;
-	t_player	player;
-	t_mlx		mlx;
 	t_bundle	bundle;
 
-	init_map(&map);
-	init_player(&player);
-	if (parse(argc, argv, &map, &player))
+	init_map(&bundle.map);
+	init_player(&bundle.player);
+	if (parse(argc, argv, &bundle.map, &bundle.player))
 		return (1);
-	bundle.mlx = &mlx;
-	bundle.map = &map;
-	bundle.player = &player;
-	if (start_mlx(&mlx))
+	if (start_mlx(&bundle.mlx))
 	{
-		free_map(&map);
+		free_map(&bundle.map);
 		return (1);
 	}
-	if (load_all_textures(&mlx, &map))
+	if (load_all_textures(&bundle.mlx, &bundle.map))
 	{
-		free_map(&map);
-		close_mlx(&mlx, &map);
+		free_map(&bundle.map);
+		close_mlx(&bundle.mlx, &bundle.map);
 		return (1);
 	}
 	launch_loop(&bundle);

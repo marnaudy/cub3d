@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   id_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:42:38 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 11:44:47 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 15:21:49 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	parse_line_texture(t_map *map, char *line)
 		return (write_error_ret("malloc error"));
 	tex_file[ft_strlen(tex_file) - 1] = '\0';
 	if (attribute_tex_file(map, line, tex_file))
+	{
+		free(tex_file);
 		return (write_error_ret("double identifier"));
+	}
 	return (0);
 }
 

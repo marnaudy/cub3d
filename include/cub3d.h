@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:29:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/14 09:24:59 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 14:56:57 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ typedef struct s_ray_calc
 
 typedef struct s_bundle
 {
-	t_player	*player;
-	t_mlx		*mlx;
-	t_map		*map;
+	t_player	player;
+	t_mlx		mlx;
+	t_map		map;
 }	t_bundle;
 
 void	close_mlx(t_mlx *mlx, t_map *map);

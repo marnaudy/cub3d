@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:45:53 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:40:23 by marnaudy         ###   ########.fr       */
+/*   Updated: 2022/09/14 15:23:22 by cboudrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ char	*read_map(int fd, int *line_count)
 		(*line_count)++;
 		free(line);
 		line = get_next_line(fd);
+	}
+	if (!line)
+	{
+		write_error_ret("missing map");
+		return (premap);
 	}
 	while (line)
 	{
