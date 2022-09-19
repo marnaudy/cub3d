@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboudrin <cboudrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marnaudy <marnaudy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:41:49 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/14 15:03:38 by cboudrin         ###   ########.fr       */
+/*   Updated: 2022/09/19 06:44:06 by marnaudy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	main(int argc, char **argv)
 	init_map(&bundle.map);
 	init_player(&bundle.player);
 	if (parse(argc, argv, &bundle.map, &bundle.player))
+	{
+		free_map(&bundle.map);
 		return (1);
+	}
 	if (start_mlx(&bundle.mlx))
 	{
 		free_map(&bundle.map);
